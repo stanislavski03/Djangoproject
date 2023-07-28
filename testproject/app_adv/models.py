@@ -13,3 +13,8 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return f"Advertisement(title = {self.title}, price = {self.price}"
+
+    class Meta:
+        db_table = "advertisements"
+
+
