@@ -1,5 +1,7 @@
 from django.db import models
-
+from django.contrib import admin
+from django.utils import timezone
+from django.utils.html import format_html
 # Create your models here.
 
 
@@ -12,9 +14,37 @@ class Advertisement(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Advertisement(title = {self.title}, price = {self.price}"
+        return f"Advertisement(id = {self.id}, title = {self.title}, price = {self.price}"
 
-    class Meta:
-        db_table = "advertisements"
+    @admin.display(description='Дата создания')
+    def created_date(self):
+        if self.created_at.date() == timezone.now().date():
+            created_time = self.created_at.time().strftime("%H:%M:%S")
+            return f"Сегодня в {created_time}"
+
+        else:
+            created_time = self.created_at.time().strftime("%d.%m.%Y в %H:%M:%S")
+            return f"{created_time}"
+
+    @admin.display(description='Дата редактирования')
+    def updated_date(self):
+        if self.created_at.date() == timezone.now().date():
+            updated_time = self.created_at.time().strftime("%H:%M:%S")
+            return format_html(
+                '<span style="color: green">Сегодня в {}</span>', updated_time
+            )
+
+        else:
+            updated_time = self.created_at.time().strftime("%d.%m.%Y в %H:%M:%S")
+            return '<span style="color: orange">{}</span>', updated_time
+
+
+
+
+class Meta:
+    db_table = "advertisements"
+    app_label = 'my_blog'
+
+
 
 
