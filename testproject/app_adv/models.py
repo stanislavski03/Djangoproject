@@ -36,8 +36,9 @@ class Advertisement(models.Model):
 
         else:
             updated_time = self.created_at.time().strftime("%d.%m.%Y в %H:%M:%S")
-            return '<span style="color: orange">{}</span>', updated_time
-
+            return format_html(
+                '<span style="color: orange"> {} </span>', updated_time
+            )
 
 
 
