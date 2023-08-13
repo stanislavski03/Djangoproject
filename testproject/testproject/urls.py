@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from app_lesson_4.views import view
 from app_adv.views import *  #top_sellers, register
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -31,5 +32,5 @@ urlpatterns = [
     path('advertisement-post/', advertisement_post),
 ]
 
-f settings.DEBUG:
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
