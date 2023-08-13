@@ -31,4 +31,5 @@ urlpatterns = [
     path('advertisement-post/', advertisement_post),
 ]
 
-
+f settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
